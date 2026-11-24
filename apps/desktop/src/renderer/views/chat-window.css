@@ -414,3 +414,89 @@ html[data-platform="darwin"] .sidebar-header {
   right: 0;
   height: 40px;
 }
+
+
+/* Codync-native Operations overview */
+.operations-overview {
+  padding-bottom: 8px;
+}
+.operations-metrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+.operations-metric {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.operations-empty {
+  min-height: 54px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+}
+.operations-attention-row {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+}
+.operations-attention-row:hover,
+.operations-computer-row:hover {
+  background: var(--bubble-agent);
+}
+.operations-bot-card {
+  min-width: 0;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+}
+.operations-live-work {
+  padding-left: 40px;
+}
+.operations-bot-summary {
+  padding-left: 40px;
+}
+.operations-computers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.operations-computer-row {
+  min-width: 0;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+}
+@media (max-width: 720px) {
+  .operations-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .operations-computers {
+    grid-template-columns: 1fr;
+  }
+}

@@ -20,6 +20,7 @@ import { refKey, sameRef, parseRef, type AppModel, type BotRef } from '../store/
 import type { BotStore } from '../store/bot-store'
 import { useComputerRoster } from '../store/computer-roster'
 import { AllWorkButton, AllWorkSheet } from './AllWorkView'
+import { OperationsOverviewSheet } from './OperationsOverviewView'
 import { BotRoster } from './BotRoster'
 import { ExtensionsMovedTip } from './ExtensionsMovedTip'
 import { RailAccountNotice, SidebarFooter } from './SidebarFooter'
@@ -231,6 +232,7 @@ function ChatSplitView() {
   const openVoiceSettings = useCallback(() => setSettings('voice'), [])
   const [showAccount, setShowAccount] = useState(false)
   const [showWork, setShowWork] = useState(false)
+  const [showOperations, setShowOperations] = useState(false)
   // What the view of all work asked a bot's chat to show, and which asking it was: its Details, the card of the task `task`, or the thread of the task `thread`.
   const [shownRequest, setShownRequest] = useState<{ ref: string; count: number; task?: string; thread?: string } | null>(null)
   const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight })
@@ -412,6 +414,7 @@ function ChatSplitView() {
           <Spacer />
           <HStack gap={6} className="no-drag">
             <ComputerFilterHeader hidden={hidden} setHidden={setHidden} manage={() => setSettings('computers')} compact />
+            <IconButton title="Operations" icon="chart.bar" size={32} className="sidebar-header-action" onClick={() => setShowOperations(true)} />
             {workButton(32, 'sidebar-header-action')}
             <IconButton title="Search" icon="magnifyingglass" size={32} className="sidebar-header-action" onClick={() => setSearching(true)} />
             <IconButton title="New" icon="plus" size={32} className="sidebar-header-action" buttonRef={newButton} menuOpen={newMenu} onClick={() => setNewMenu((o) => !o)} disabled={!onlineStores.length} />
@@ -448,6 +451,7 @@ function ChatSplitView() {
         {compact ? (
           <div className="rail-actions">
             <IconButton title="Search" icon="magnifyingglass" onClick={() => setSearching(true)} />
+            <IconButton title="Operations" icon="chart.bar" size={36} onClick={() => setShowOperations(true)} />
             {workButton(36)}
             <IconButton title="New" icon="plus" size={36} buttonRef={railNewButton} menuOpen={railNewMenu} disabled={!onlineStores.length} onClick={() => setRailNewMenu((o) => !o)} />
             <AnchoredMenu open={railNewMenu} onClose={() => setRailNewMenu(false)} anchor={railNewButton} items={newItems} />
@@ -496,6 +500,15 @@ function ChatSplitView() {
         </div>
       ) : null}
 
+      <OperationsOverviewSheet
+        open={showOperations}
+        roster={app.roster}
+        stores={stores}
+        onClose={() => setShowOperations(false)}
+        openDetails={(ref) => { app.select(ref); setShowOperations(false) }}
+        openCard={(ref, task) => { setShowOperations(false); showInChat(ref, { task }) }}
+        openThread={(ref, thread) => { setShowOperations(false); showInChat(ref, { thread }) }}
+      />
       <AllWorkSheet
         open={showWork}
         bots={work.bots}
