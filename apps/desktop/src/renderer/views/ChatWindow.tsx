@@ -506,8 +506,8 @@ function ChatSplitView() {
         stores={stores}
         onClose={() => setShowOperations(false)}
         openDetails={(ref) => { app.select(ref); setShowOperations(false) }}
-        openCard={(ref, task) => showInChat(ref, { task })}
-        openThread={(ref, thread) => showInChat(ref, { thread })}
+        openCard={(ref, task) => { setShowOperations(false); showInChat(ref, { task }) }}
+        openThread={(ref, thread) => { setShowOperations(false); showInChat(ref, { thread }) }}
       />
       <AllWorkSheet
         open={showWork}
