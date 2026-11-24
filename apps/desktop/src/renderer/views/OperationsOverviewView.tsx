@@ -5,12 +5,11 @@ import { ModalHeader, Sheet, SheetPage } from '../components/Overlay'
 import { HStack, Spacer, VStack } from '../components/Stack'
 import { Text } from '../components/Text'
 import { useTr } from '../lib/use-language'
-import { isOpen, workStatusWord, type WorkTask } from '@shared/work'
+import { isOpen } from '@shared/work'
 import { refKey, type BotRef, type RosterItem } from '../store/app-model'
 import type { BotStore } from '../store/bot-store'
 import { StoreContext } from '../store/context'
 import { LiveWork } from './chat/WorkRows'
-import './operations-overview.css'
 
 type Props = {
   open: boolean
@@ -22,7 +21,6 @@ type Props = {
   openThread: (ref: BotRef, threadId: string) => void
 }
 
-const openTasks = (tasks: WorkTask[]) => tasks.filter(isOpen)
 const needsAttention = (bot: RosterItem['bot']) =>
   bot.status === 'needsInput' || bot.work.some((task) => task.status === 'needsYou' || task.status === 'failed')
 
@@ -44,7 +42,6 @@ export function OperationsOverviewSheet({ open, roster, stores, onClose, openDet
   const attention = roster.filter(({ bot }) => needsAttention(bot))
   const failed = tasks.filter((task) => task.status === 'failed').length
   const connected = stores.filter((store) => store.shownConnection.kind === 'online' && !store.mismatch).length
-  const online = stores.filter((store) => store.shownConnection.kind === 'online').length
   const openBotCount = roster.filter(({ bot }) => bot.work.some(isOpen)).length
   const sorted = [...roster].sort((a, b) => {
     const aUrgent = needsAttention(a.bot) ? 1 : 0
@@ -55,7 +52,7 @@ export function OperationsOverviewSheet({ open, roster, stores, onClose, openDet
   return (
     <Sheet open={open} onClose={onClose} width={760} maxHeight={820} dismissOnDim>
       <SheetPage>
-        <ModalHeader icon="chart.bar.xaxis" title={tr('Operations overview')} subtitle={tr('Live view of your Codync bots and their current work.')} />
+        <ModalHeader icon="chart.bar" title={tr('Operations overview')} subtitle={tr('Live view of your Codync bots and their current work.')} />
         <VStack gap={16} className="operations-overview">
           <div className="operations-metrics">
             <Metric label={tr('Connected computers')} value={connected} note={tr('{count} known computers').replaceAll('{count}', String(stores.length))} />
