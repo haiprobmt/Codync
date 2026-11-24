@@ -140,7 +140,7 @@ export function OperationsOverviewSheet({ open, roster, stores, onClose, openDet
             <div className="operations-computers">
               {stores.map((store) => (
                 <div className="operations-computer-row" key={store.computer.id}>
-                  <Icon name={store.shownConnection.kind === 'online' ? 'checkmark.circle.fill' : 'exclamationmark.circle'} size={16} color={store.shownConnection.kind === 'online' ? 'var(--added)' : 'var(--attention)'} />
+                  <Icon name={store.shownConnection.kind === 'online' && !store.mismatch ? 'checkmark.circle.fill' : 'exclamationmark.circle'} size={16} color={store.shownConnection.kind === 'online' && !store.mismatch ? 'var(--added)' : 'var(--attention)'} />
                   <VStack gap={2} grow>
                     <Text size="body" weight="medium">{store.hostName}</Text>
                     <Text size="caption" tone="secondary">{store.connectionLabel}</Text>
