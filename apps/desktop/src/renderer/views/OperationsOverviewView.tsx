@@ -55,18 +55,18 @@ export function OperationsOverviewSheet({ open, roster, stores, onClose, openDet
         <ModalHeader icon="chart.bar" title={tr('Operations overview')} subtitle={tr('Live view of your Codync bots and their current work.')} />
         <VStack gap={16} className="operations-overview">
           <div className="operations-metrics">
-            <Metric label={tr('Connected computers')} value={connected} note={tr('{count} known computers').replaceAll('{count}', String(stores.length))} />
+            <Metric label={tr('Connected computers')} value={connected} note={tr('{count} of {total} online').replaceAll('{count}', String(connected)).replaceAll('{total}', String(stores.length))} />
             <Metric label={tr('Bots')} value={roster.length} note={tr('{count} with open work').replaceAll('{count}', String(openBotCount))} />
             <Metric label={tr('Working')} value={active} note={tr('Tasks running now')} />
             <Metric label={tr('Waiting')} value={waiting} note={tr('Tasks in queue')} />
-            <Metric label={tr('Needs attention')} value={attention.length + failed} note={tr('Bots or failed tasks')} tone={attention.length + failed ? 'attention' : 'text'} />
+            <Metric label={tr('Needs attention')} value={attention.length} note={tr('{count} failed tasks').replaceAll('{count}', String(failed))} tone={attention.length + failed ? 'attention' : 'text'} />
           </div>
 
           <VStack gap={8}>
             <HStack align="center">
               <Text size="title3" weight="semibold">{tr('Attention')}</Text>
               <Spacer />
-              <Text size="caption" tone="secondary">{tr('{count} items').replaceAll('{count}', String(attention.length + failed))}</Text>
+              <Text size="caption" tone="secondary">{tr('{count} bots').replaceAll('{count}', String(attention.length))}</Text>
             </HStack>
             {attention.length === 0 && failed === 0 ? (
               <div className="operations-empty">
