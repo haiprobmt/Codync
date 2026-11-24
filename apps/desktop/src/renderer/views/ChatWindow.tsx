@@ -414,7 +414,7 @@ function ChatSplitView() {
           <Spacer />
           <HStack gap={6} className="no-drag">
             <ComputerFilterHeader hidden={hidden} setHidden={setHidden} manage={() => setSettings('computers')} compact />
-            <IconButton title="Operations" icon="chart.bar.xaxis" size={32} className="sidebar-header-action" onClick={() => setShowOperations(true)} />
+            <IconButton title="Operations" icon="chart.bar" size={32} className="sidebar-header-action" onClick={() => setShowOperations(true)} />
             {workButton(32, 'sidebar-header-action')}
             <IconButton title="Search" icon="magnifyingglass" size={32} className="sidebar-header-action" onClick={() => setSearching(true)} />
             <IconButton title="New" icon="plus" size={32} className="sidebar-header-action" buttonRef={newButton} menuOpen={newMenu} onClick={() => setNewMenu((o) => !o)} disabled={!onlineStores.length} />
@@ -451,7 +451,7 @@ function ChatSplitView() {
         {compact ? (
           <div className="rail-actions">
             <IconButton title="Search" icon="magnifyingglass" onClick={() => setSearching(true)} />
-            <IconButton title="Operations" icon="chart.bar.xaxis" size={36} onClick={() => setShowOperations(true)} />
+            <IconButton title="Operations" icon="chart.bar" size={36} onClick={() => setShowOperations(true)} />
             {workButton(36)}
             <IconButton title="New" icon="plus" size={36} buttonRef={railNewButton} menuOpen={railNewMenu} disabled={!onlineStores.length} onClick={() => setRailNewMenu((o) => !o)} />
             <AnchoredMenu open={railNewMenu} onClose={() => setRailNewMenu(false)} anchor={railNewButton} items={newItems} />
